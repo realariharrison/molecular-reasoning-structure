@@ -7,7 +7,7 @@
 
 ## Core Claim
 
-Molecular targets determine AI reasoning topology. CYP2D6 reasoning (2D substructure-driven) produces more covalent bonds; hERG reasoning (3D conformation-dependent) produces more van der Waals bonds. Effect sizes are large (Cohen's d = 0.94 and 1.75), surviving Bonferroni correction across 12 tests. This completes a bidirectional loop with Chen et al. (2026): they showed reasoning structure predicts training quality (Direction A); we show the chemistry problem shapes reasoning structure (Direction B).
+Molecular targets determine AI reasoning topology. CYP2D6 reasoning (2D substructure-driven) produces more covalent bonds; hERG reasoning (3D conformation-dependent) produces more van der Waals bonds. Effect sizes are large (Cohen's d = 0.94 and 1.75), surviving Bonferroni correction across 12 tests. This completes a bidirectional loop with Chen, Du, Li et al. (2026): they showed reasoning structure predicts training quality (Direction A); we show the chemistry problem shapes reasoning structure (Direction B).
 
 Four other pre-registered hypotheses (H1–H4) were null: reasoning structure does not predict accuracy in aggregate. The combined result is that structure reflects *what* the model reasons about, not *how well*.
 
@@ -62,7 +62,7 @@ Logistic regression (bond ratios + stability → accuracy): AUROC = 0.531. Bond 
 
 ## Comparison with Your Method — An Honest Divergence
 
-We ran our Semantic Bond Classifier on 200 OpenThoughts-114k traces to compare directly with your attention-based distributions. **The results diverge and we want to surface this proactively** (paper Section 4.6, Figure 7):
+Your framework defines three interaction types: Deep-Reasoning (covalent-like), Self-Reflection (hydrogen-bond-like), and Self-Exploration (van der Waals-like), classified via attention weight patterns. We map to the same trichotomy but classify from text alone. We ran our Semantic Bond Classifier on 200 OpenThoughts-114k traces to compare directly with your attention-based distributions. **The results diverge and we want to surface this proactively** (paper Section 4.6, Figure 7):
 
 | Bond Type | Ours (Semantic) | Yours (Attention) |
 |---|---|---|
