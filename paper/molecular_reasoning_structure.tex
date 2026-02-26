@@ -165,7 +165,7 @@ Traces were collected via the Claude Code CLI (\texttt{claude --print --model cl
 
     \item \textbf{Discourse markers.} Keyword matching against curated dictionaries (73 markers): deductive markers (``therefore,'' ``because,'' ``this functional group'') vote \cov{}, reflective markers (``wait,'' ``actually,'' ``let me check'') vote \hyd{}, exploratory markers (``alternatively,'' ``what if,'' ``perhaps'') vote \vdw{} \citep{pitler2009automatic}.
 
-    \item \textbf{Energy proxy.} $E_{ij} = -\log(\text{sim}_{ij}) / d_{ij}$, inspired by the Gibbs--Boltzmann formulation in \citet{chen2026molecular}. Low energy ($< 0.5$) votes \cov{}, moderate ($0.5$--$1.5$) votes \hyd{}, high ($> 1.5$) votes \vdw{}.
+    \item \textbf{Energy proxy.} $E_{ij} = -\log(\text{sim}_{ij}) + \log(d_{ij})$, aligning with the energy state $E$ in \citet{chen2026molecular}'s Gibbs--Boltzmann formulation, where larger distance corresponds to higher energy (weaker bond). Low energy ($< 1.0$) votes \cov{}, moderate ($1.0$--$2.0$) votes \hyd{}, high ($> 2.0$) votes \vdw{}.
 \end{enumerate}
 
 Each signal contributes a weighted vote (similarity: up to 1.0, distance: 0.4, markers: 0.6, energy: 0.3). The bond type with the highest total vote wins. All pairwise combinations of reasoning steps ($i < j$) are classified, producing $\binom{n}{2}$ bonds per trace (mean: 251 bonds from $\sim$22 reasoning steps).
@@ -315,6 +315,40 @@ P-gp   & $0.152 \pm 0.046$ & $0.219 \pm 0.041$ & $0.629 \pm 0.062$ \\
 \label{fig:hyp_summary}
 \end{figure}
 
+\subsection{Sensitivity to Distance Bias}
+\label{sec:sensitivity}
+
+A key concern with the pairwise classification approach is that the $O(n^2)$ bond count may introduce distance-dependent biases. If this bias were systematically different across endpoints, the H5 result could be an artifact. To address this, we conducted two sensitivity analyses (Table~\ref{tab:sensitivity}):
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Local window restriction.} We restricted bond classification to step pairs within a window of $k = 3$, $5$, or $7$ steps, eliminating long-range pairs entirely.
+
+    \item \textbf{Distance-bin reweighting.} We weighted each bond inversely by the number of bonds sharing its distance bin, equalizing the contribution of each distance level.
+\end{enumerate}
+
+\begin{table}[h]
+\centering
+\caption{Sensitivity analysis: H5 robustness under distance controls.}
+\label{tab:sensitivity}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Analysis} & \multicolumn{3}{c}{\textbf{H5a: Covalent}} & \multicolumn{3}{c}{\textbf{H5b: VdW}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & $d$ & $p$ & Sig. & $d$ & $p$ & Sig. \\
+\midrule
+Baseline (all bonds) & 0.84 & $2.1 \times 10^{-8}$ & \checkmark\checkmark & 1.32 & $1.3 \times 10^{-16}$ & \checkmark\checkmark \\
+Local window $k = 3$ & 0.31 & $1.8 \times 10^{-2}$ & * & 0.79 & $1.0 \times 10^{-7}$ & \checkmark\checkmark \\
+Local window $k = 5$ & 0.59 & $3.9 \times 10^{-5}$ & \checkmark\checkmark & 1.30 & $3.0 \times 10^{-16}$ & \checkmark\checkmark \\
+Local window $k = 7$ & 0.72 & $1.0 \times 10^{-6}$ & \checkmark\checkmark & 1.38 & $9.4 \times 10^{-18}$ & \checkmark\checkmark \\
+Distance-reweighted  & 0.77 & $2.0 \times 10^{-7}$ & \checkmark\checkmark & 0.92 & $1.1 \times 10^{-9}$ & \checkmark\checkmark \\
+\bottomrule
+\end{tabular}
+\smallskip
+\raggedright\small \checkmark\checkmark\ = Bonferroni significant ($p < 0.0042$); * = nominally significant ($p < 0.05$).
+\end{table}
+
+The VdW separation between CYP2D6 and hERG survives every configuration ($d \geq 0.79$, all $p < 10^{-7}$). The covalent separation is robust for $k \geq 5$ and distance-reweighting, but attenuates at $k = 3$ ($d = 0.31$, $p = 0.018$)---expected because the $k = 3$ window retains only $\sim$6 bonds per trace, reducing statistical power. Critically, the pairwise distance bias is \emph{not systematically different across endpoints}: the CYP2D6 vs.\ hERG separation persists after controlling for distance structure.
+
 \subsection{Classifier Ablation}
 \label{sec:ablation}
 
@@ -353,15 +387,15 @@ Semantic similarity is the dominant signal: removing it shifts 13.2 percentage p
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{fig7_openthoughts_validation.pdf}
-\caption{Cross-method validation on OpenThoughts-114k. (A)~Our semantic classifier produces VdW-dominant distributions while ByteDance's attention-based method produces covalent-dominant distributions. (B)~The three bond types show an inverted ranking ($r = -0.76$), explained by the pairwise approach's bias on long traces (242 steps vs.\ $\sim$22 in our primary analysis).}
+\caption{Cross-method validation on OpenThoughts-114k. (A)~Our semantic classifier produces VdW-dominant distributions while the attention-based method produces covalent-dominant distributions. (B)~The three bond types show an inverted ranking ($r = -0.83$), explained by the pairwise approach's $O(n^2)$ bias on long traces (242 steps vs.\ $\sim$22 in our primary analysis). See Section~\ref{sec:sensitivity} for evidence that this bias is not endpoint-correlated.}
 \label{fig:validation}
 \end{figure}
 
-We validated our Semantic Bond Classifier against \citet{chen2026molecular}'s attention-based approach by classifying 200 traces from OpenThoughts-114k \citep{openthoughts2025} (Figure~\ref{fig:validation}). Our method produced distributions of 14.4\% covalent, 20.2\% hydrogen, 65.5\% VdW, compared to their reported 45\% covalent, 30\% hydrogen, 25\% VdW (Pearson $r = -0.76$).
+We validated our Semantic Bond Classifier against \citet{chen2026molecular}'s attention-based approach by classifying 200 traces from OpenThoughts-114k \citep{openthoughts2025} (Figure~\ref{fig:validation}). After recalibrating our energy proxy to align with their energy state $E$ (where $E = -\log(\text{sim}) + \log(d)$ ensures larger distance corresponds to higher energy, consistent with their Gibbs--Boltzmann formulation), our method produced distributions of 8.0\% covalent, 21.9\% hydrogen, 70.2\% VdW, compared to their reported 45\% covalent, 30\% hydrogen, 25\% VdW (Pearson $r = -0.83$).
 
-The inverted ranking has a clear methodological explanation. OpenThoughts traces average 242 reasoning steps (vs.\ $\sim$22 for our Claude traces), producing $\binom{242}{2} \approx 29{,}000$ pairwise bonds. In long traces, most step pairs are positionally distant ($d \gg 3$) and semantically dissimilar, biasing the pairwise approach toward VdW classification. The attention-based method avoids this because attention weights capture actual semantic relationships, not exhaustive pairwise comparisons.
+The inverted ranking has a clear methodological explanation. OpenThoughts traces average 242 reasoning steps (vs.\ $\sim$22 for our Claude traces), producing $\binom{242}{2} \approx 29{,}000$ pairwise bonds. In long traces, most step pairs are positionally distant ($d \gg 3$) and semantically dissimilar, biasing the pairwise approach toward VdW classification. The attention-based method avoids this because attention weights capture actual semantic relationships, not exhaustive pairwise comparisons. Notably, correcting the energy formula slightly \emph{increased} the divergence (from $r = -0.76$ to $r = -0.83$) because the corrected formula reinforces VdW classification for distant pairs---mathematically correct, but amplifying the length-dependent bias.
 
-This divergence is a genuine limitation of the pairwise semantic approach for long traces. However, for the moderate-length traces in our primary analysis ($\sim$22 steps, $\sim$251 bonds), positional distance does not dominate, and the H5 signal (endpoint-specific bond patterns) emerges clearly despite any baseline VdW bias---indeed, the \emph{between-endpoint differences} in VdW ratio are the statistically significant finding.
+This divergence is a genuine limitation of the pairwise semantic approach for long traces. However, the sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that the pairwise distance bias is not endpoint-correlated: the CYP2D6 vs.\ hERG separation survives local window restriction and distance-bin reweighting. The H5 claim rests on \emph{relative between-endpoint differences}, not absolute bond proportions.
 
 % ============================================================
 \section{Discussion}
@@ -394,9 +428,9 @@ The finding that molecular targets shape reasoning topology suggests several app
 \subsection{Limitations}
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Single model.} All traces were collected from Claude Opus~4.6. The reasoning patterns may not generalize to other LLMs, particularly open-source models with different training procedures.
+    \item \textbf{Single model.} All primary traces were collected from Claude Opus~4.6. Replication on open-source reasoning models (e.g., DeepSeek-R1, Qwen) is needed to establish whether endpoint-specific bond patterns are a general property of LLM reasoning or Claude-specific.
 
-    \item \textbf{Pairwise classification bias.} The Semantic Bond Classifier's pairwise approach biases toward VdW for long traces. The cross-method validation (Section~\ref{sec:validation}) shows a distributional divergence from attention-based methods. Our results should be interpreted in terms of \emph{relative} differences between endpoints, not absolute bond proportions.
+    \item \textbf{Pairwise classification bias.} The Semantic Bond Classifier's pairwise approach biases toward VdW for long traces. The cross-method validation (Section~\ref{sec:validation}) shows a distributional divergence from attention-based methods ($r = -0.83$). Sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that this bias is not endpoint-correlated---H5 survives local window restriction and distance-bin reweighting---but our results should be interpreted in terms of \emph{relative} differences between endpoints, not absolute bond proportions.
 
     \item \textbf{Prompt influence.} The structured five-step prompt may shape reasoning structure more than the molecular target does. We cannot rule out that the structured prompt creates the endpoint-specific patterns rather than the molecular targets themselves---for instance, step~3 (``mechanistic reasoning'') may elicit different discourse markers for CYP vs.\ hERG simply because the prompt frames the tasks differently. A prompt ablation comparing minimal vs.\ structured prompts would help disentangle prompt-driven from target-driven structure; this is a priority for follow-up work.
 
