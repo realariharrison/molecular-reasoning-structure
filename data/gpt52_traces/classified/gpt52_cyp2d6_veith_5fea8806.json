@@ -1,0 +1,802 @@
+{
+  "trace_id": "5fea8806-a5e3-4a7c-8554-51cb2fd6b163",
+  "molecule": {
+    "smiles": "COC(Cc1n[nH]c(=S)n1-c1ccc(Cl)cc1)OC",
+    "endpoint": "cyp2d6_veith",
+    "ground_truth": 0,
+    "claude_prediction": 0,
+    "claude_confidence": "medium",
+    "novoexpert1_prediction": null
+  },
+  "steps": [
+    {
+      "step_id": "bafc1727",
+      "step_index": 0,
+      "step_type": "reasoning",
+      "content": "### 1) ANALYZE the molecular structure\n**SMILES:** `COC(Cc1n[nH]c(=S)n1-c1ccc(Cl)cc1)OC`",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619229+00:00"
+    },
+    {
+      "step_id": "35f2f90a",
+      "step_index": 1,
+      "step_type": "reasoning",
+      "content": "**Key features**\n- **Aromatic ring:** one **chlorophenyl** ring (lipophilic/aromatic surface).\n- **Heterocycle:** a **1,2,4-triazole-like ring** (actually a 5-membered N-rich ring) containing:\n  - one **[nH]** (H-bond donor)\n  - multiple ring nitrogens (potential H-bond acceptors depending on tautomer/protonation)\n  - a **thioamide/thione** functionality: `c(=S)` (soft, polarizable; can H-bond accept/engage in coordination-like interactions).\n- **Acetal/ether region:** `COC(\u2026 )OC` = **two methoxy ethers** on a central carbon (H-bond acceptors; increases polarity somewhat but still lipophilic overall).\n- **No obvious tertiary amine / strongly basic center** (no aliphatic amine).",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619258+00:00"
+    },
+    {
+      "step_id": "733dcdeb",
+      "step_index": 2,
+      "step_type": "reasoning",
+      "content": "**Structural alerts relevant to CYP2D6 inhibition**\n- Has **lipophilic aromatic ring** (fits one common CYP2D6 inhibitor feature).\n- **Lacks a classic protonatable basic nitrogen** (major missing feature for typical CYP2D6 inhibitors).",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619283+00:00"
+    },
+    {
+      "step_id": "10fc82fb",
+      "step_index": 3,
+      "step_type": "reasoning",
+      "content": "### 2) REASON about structure\u2013activity relationships (why features matter)\nCYP2D6 inhibition commonly correlates with:\n- A **protonatable basic N** (pKa often ~7\u201310) that can form a **salt bridge / ionic interaction** with acidic residues in the CYP2D6 active site (classically Asp301), plus\n- One or more **aromatic/hydrophobic regions** to occupy lipophilic pockets.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619306+00:00"
+    },
+    {
+      "step_id": "f841f4f9",
+      "step_index": 4,
+      "step_type": "reasoning",
+      "content": "This molecule\u2019s N atoms are **embedded in an aromatic/tautomeric azole-like system** and are therefore **much less basic** than a tertiary aliphatic amine. The presence of **[nH]** suggests an azole tautomer where at least one N is protonated in the ring, but that does **not** translate into a strongly **protonatable/basic center at physiological pH** in the way CYP2D6 \u201clikes\u201d for tight binding.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619329+00:00"
+    },
+    {
+      "step_id": "964d49ca",
+      "step_index": 5,
+      "step_type": "reasoning",
+      "content": "The molecule does have **one phenyl ring** and some lipophilicity (chloro substituent), which can support nonspecific P450 binding, but without a strong basic anchor, it is less likely to be a **potent CYP2D6 inhibitor**.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619352+00:00"
+    },
+    {
+      "step_id": "d7b5ae2c",
+      "step_index": 6,
+      "step_type": "reasoning",
+      "content": "### 3) CONSIDER mechanistic basis (interaction with CYP2D6)\nMany CYP inhibitors bind by:\n- **Type II coordination** (heteroatom lone pair coordinating heme iron) \u2014 common for **imidazoles/triazoles** (e.g., antifungals) and can yield broad CYP inhibition.\n- **CYP2D6-specific binding** often relies more on the **basic amine\u2013Asp301 interaction** plus hydrophobic packing.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619374+00:00"
+    },
+    {
+      "step_id": "f8c776a5",
+      "step_index": 7,
+      "step_type": "reasoning",
+      "content": "Here, the **azole-like nitrogens** could, in principle, contribute to **heme interaction** depending on tautomer and orientation, but the ring also contains **thione (C=S)** and an **[nH]**, which complicates availability of a \u201cfree\u201d sp2 N lone pair for strong Fe coordination. Net: possible **some P450 binding**, but not clearly a strong **CYP2D6-selective** inhibitor pattern.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619396+00:00"
+    },
+    {
+      "step_id": "d74d84ef",
+      "step_index": 8,
+      "step_type": "reasoning",
+      "content": "### 4) PREDICT outcome + confidence\n**PREDICTION:** **Negative** (unlikely to be a significant CYP2D6 inhibitor)  \n**CONFIDENCE:** **Medium**",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619417+00:00"
+    },
+    {
+      "step_id": "caddfcfc",
+      "step_index": 9,
+      "step_type": "reasoning",
+      "content": "Rationale: It has aromatic/lipophilic character, but **lacks a clear protonatable tertiary amine/basic center** that is a dominant driver for many CYP2D6 inhibitors. Some residual risk remains because N-rich heteroaromatics can inhibit CYPs via heme binding, but the specific scaffold here is not a classic strong CYP2D6 inhibitor motif.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619439+00:00"
+    },
+    {
+      "step_id": "aa60ce4f",
+      "step_index": 10,
+      "step_type": "reasoning",
+      "content": "### 5) VERIFY reasoning (check contradictions / alternatives / uncertainty)\n- **Alternative explanation:** If one of the ring nitrogens is sufficiently basic (tautomer-dependent) or if the heterocycle can present a lone pair to the heme iron effectively, it could show **measurable CYP inhibition** (possibly more across other isoforms like CYP3A4/2C9) even without an aliphatic amine.\n- **Uncertainty driver:** **Protonation state/pKa** of this heterocycle and whether it behaves like an azole heme ligand in practice. Without calculated pKa/logP and experimental inhibition data, potency is uncertain\u2014hence **medium** confidence rather than high.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619461+00:00"
+    },
+    {
+      "step_id": "eb292a7c",
+      "step_index": 11,
+      "step_type": "conclusion",
+      "content": "## Final\n- **PREDICTION:** Negative  \n- **CONFIDENCE:** Medium  \n- **KEY_FACTORS (top 3):**\n  1. **No obvious protonatable tertiary/basic aliphatic nitrogen** (weak CYP2D6 anchoring vs typical inhibitors)\n  2. **Single lipophilic chlorophenyl ring** (some hydrophobic binding potential, but not sufficient alone)\n  3. **N-rich heteroaromatic thione system** (could cause some CYP binding, but not strongly aligned with classic CYP2D6 inhibition pattern)",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T19:36:02.619483+00:00"
+    }
+  ],
+  "bonds": [
+    {
+      "source_index": 0,
+      "target_index": 1,
+      "bond_type": "hydrogen",
+      "similarity": 0.4394,
+      "distance": 1,
+      "energy": 0.8224,
+      "marker_type": "hydrogen",
+      "confidence": 0.5761
+    },
+    {
+      "source_index": 0,
+      "target_index": 2,
+      "bond_type": "van_der_waals",
+      "similarity": 0.256,
+      "distance": 2,
+      "energy": 2.0556,
+      "marker_type": null,
+      "confidence": 0.6269
+    },
+    {
+      "source_index": 0,
+      "target_index": 3,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2528,
+      "distance": 3,
+      "energy": 2.4737,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 0,
+      "target_index": 4,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3371,
+      "distance": 4,
+      "energy": 2.4736,
+      "marker_type": "covalent",
+      "confidence": 0.6322
+    },
+    {
+      "source_index": 0,
+      "target_index": 5,
+      "bond_type": "van_der_waals",
+      "similarity": 0.1536,
+      "distance": 5,
+      "energy": 3.4826,
+      "marker_type": "hydrogen",
+      "confidence": 0.6518
+    },
+    {
+      "source_index": 0,
+      "target_index": 6,
+      "bond_type": "van_der_waals",
+      "similarity": 0.238,
+      "distance": 6,
+      "energy": 3.2272,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 0,
+      "target_index": 7,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2873,
+      "distance": 7,
+      "energy": 3.1931,
+      "marker_type": "hydrogen",
+      "confidence": 0.6378
+    },
+    {
+      "source_index": 0,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.1049,
+      "distance": 8,
+      "energy": 4.3346,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 0,
+      "target_index": 9,
+      "bond_type": "van_der_waals",
+      "similarity": 0.1512,
+      "distance": 9,
+      "energy": 4.0865,
+      "marker_type": "covalent",
+      "confidence": 0.6521
+    },
+    {
+      "source_index": 0,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2105,
+      "distance": 10,
+      "energy": 3.8609,
+      "marker_type": "covalent",
+      "confidence": 0.823
+    },
+    {
+      "source_index": 0,
+      "target_index": 11,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2876,
+      "distance": 11,
+      "energy": 3.644,
+      "marker_type": "hydrogen",
+      "confidence": 0.6377
+    },
+    {
+      "source_index": 1,
+      "target_index": 2,
+      "bond_type": "covalent",
+      "similarity": 0.5053,
+      "distance": 1,
+      "energy": 0.6826,
+      "marker_type": null,
+      "confidence": 0.6339
+    },
+    {
+      "source_index": 1,
+      "target_index": 3,
+      "bond_type": "covalent",
+      "similarity": 0.314,
+      "distance": 2,
+      "energy": 1.8516,
+      "marker_type": null,
+      "confidence": 0.3835
+    },
+    {
+      "source_index": 1,
+      "target_index": 4,
+      "bond_type": "hydrogen",
+      "similarity": 0.5638,
+      "distance": 3,
+      "energy": 1.6716,
+      "marker_type": "covalent",
+      "confidence": 0.7716
+    },
+    {
+      "source_index": 1,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.4474,
+      "distance": 4,
+      "energy": 2.1906,
+      "marker_type": "hydrogen",
+      "confidence": 0.8191
+    },
+    {
+      "source_index": 1,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.4042,
+      "distance": 5,
+      "energy": 2.5152,
+      "marker_type": null,
+      "confidence": 0.7069
+    },
+    {
+      "source_index": 1,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5142,
+      "distance": 6,
+      "energy": 2.457,
+      "marker_type": "hydrogen",
+      "confidence": 0.8247
+    },
+    {
+      "source_index": 1,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.224,
+      "distance": 7,
+      "energy": 3.442,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 1,
+      "target_index": 9,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3782,
+      "distance": 8,
+      "energy": 3.0519,
+      "marker_type": "covalent",
+      "confidence": 0.6275
+    },
+    {
+      "source_index": 1,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.4197,
+      "distance": 9,
+      "energy": 3.0655,
+      "marker_type": "covalent",
+      "confidence": 0.4498
+    },
+    {
+      "source_index": 1,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.5571,
+      "distance": 10,
+      "energy": 2.8876,
+      "marker_type": "hydrogen",
+      "confidence": 0.8281
+    },
+    {
+      "source_index": 2,
+      "target_index": 3,
+      "bond_type": "covalent",
+      "similarity": 0.7679,
+      "distance": 1,
+      "energy": 0.2641,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 2,
+      "target_index": 4,
+      "bond_type": "hydrogen",
+      "similarity": 0.5901,
+      "distance": 2,
+      "energy": 1.2207,
+      "marker_type": "covalent",
+      "confidence": 0.5485
+    },
+    {
+      "source_index": 2,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.7433,
+      "distance": 3,
+      "energy": 1.3952,
+      "marker_type": "hydrogen",
+      "confidence": 0.6362
+    },
+    {
+      "source_index": 2,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.6938,
+      "distance": 4,
+      "energy": 1.7519,
+      "marker_type": null,
+      "confidence": 0.5022
+    },
+    {
+      "source_index": 2,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5849,
+      "distance": 5,
+      "energy": 2.1457,
+      "marker_type": "hydrogen",
+      "confidence": 0.8303
+    },
+    {
+      "source_index": 2,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.5865,
+      "distance": 6,
+      "energy": 2.3253,
+      "marker_type": null,
+      "confidence": 0.7434
+    },
+    {
+      "source_index": 2,
+      "target_index": 9,
+      "bond_type": "covalent",
+      "similarity": 0.8066,
+      "distance": 7,
+      "energy": 2.1608,
+      "marker_type": "covalent",
+      "confidence": 0.5253
+    },
+    {
+      "source_index": 2,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.4989,
+      "distance": 8,
+      "energy": 2.7749,
+      "marker_type": "covalent",
+      "confidence": 0.4703
+    },
+    {
+      "source_index": 2,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.7632,
+      "distance": 9,
+      "energy": 2.4675,
+      "marker_type": "hydrogen",
+      "confidence": 0.4847
+    },
+    {
+      "source_index": 3,
+      "target_index": 4,
+      "bond_type": "covalent",
+      "similarity": 0.4548,
+      "distance": 1,
+      "energy": 0.7879,
+      "marker_type": "covalent",
+      "confidence": 0.6611
+    },
+    {
+      "source_index": 3,
+      "target_index": 5,
+      "bond_type": "covalent",
+      "similarity": 0.6141,
+      "distance": 2,
+      "energy": 1.1807,
+      "marker_type": "hydrogen",
+      "confidence": 0.5298
+    },
+    {
+      "source_index": 3,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.6628,
+      "distance": 3,
+      "energy": 1.5099,
+      "marker_type": null,
+      "confidence": 0.5136
+    },
+    {
+      "source_index": 3,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.4521,
+      "distance": 4,
+      "energy": 2.1801,
+      "marker_type": "hydrogen",
+      "confidence": 0.8195
+    },
+    {
+      "source_index": 3,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.4771,
+      "distance": 5,
+      "energy": 2.3494,
+      "marker_type": null,
+      "confidence": 0.7227
+    },
+    {
+      "source_index": 3,
+      "target_index": 9,
+      "bond_type": "covalent",
+      "similarity": 0.6724,
+      "distance": 6,
+      "energy": 2.1887,
+      "marker_type": "covalent",
+      "confidence": 0.493
+    },
+    {
+      "source_index": 3,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3654,
+      "distance": 7,
+      "energy": 2.9527,
+      "marker_type": "covalent",
+      "confidence": 0.8145
+    },
+    {
+      "source_index": 3,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.6263,
+      "distance": 8,
+      "energy": 2.5474,
+      "marker_type": "hydrogen",
+      "confidence": 0.5191
+    },
+    {
+      "source_index": 4,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.4891,
+      "distance": 1,
+      "energy": 0.7152,
+      "marker_type": "hydrogen",
+      "confidence": 0.5861
+    },
+    {
+      "source_index": 4,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.4433,
+      "distance": 2,
+      "energy": 1.5067,
+      "marker_type": null,
+      "confidence": 0.6207
+    },
+    {
+      "source_index": 4,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5548,
+      "distance": 3,
+      "energy": 1.6878,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 4,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2957,
+      "distance": 4,
+      "energy": 2.6048,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 4,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.5425,
+      "distance": 5,
+      "energy": 2.2209,
+      "marker_type": "covalent",
+      "confidence": 0.654
+    },
+    {
+      "source_index": 4,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.4704,
+      "distance": 6,
+      "energy": 2.5459,
+      "marker_type": "covalent",
+      "confidence": 0.4631
+    },
+    {
+      "source_index": 4,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.5224,
+      "distance": 7,
+      "energy": 2.5952,
+      "marker_type": "hydrogen",
+      "confidence": 0.8254
+    },
+    {
+      "source_index": 5,
+      "target_index": 6,
+      "bond_type": "covalent",
+      "similarity": 0.6356,
+      "distance": 1,
+      "energy": 0.4532,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 5,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.4953,
+      "distance": 2,
+      "energy": 1.3957,
+      "marker_type": "hydrogen",
+      "confidence": 0.7642
+    },
+    {
+      "source_index": 5,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.4709,
+      "distance": 3,
+      "energy": 1.8517,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 5,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.6968,
+      "distance": 4,
+      "energy": 1.7476,
+      "marker_type": "covalent",
+      "confidence": 0.5008
+    },
+    {
+      "source_index": 5,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3451,
+      "distance": 5,
+      "energy": 2.6734,
+      "marker_type": "covalent",
+      "confidence": 0.8157
+    },
+    {
+      "source_index": 5,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.6244,
+      "distance": 6,
+      "energy": 2.2628,
+      "marker_type": "hydrogen",
+      "confidence": 0.5197
+    },
+    {
+      "source_index": 6,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5904,
+      "distance": 1,
+      "energy": 0.5269,
+      "marker_type": "hydrogen",
+      "confidence": 0.605
+    },
+    {
+      "source_index": 6,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.4443,
+      "distance": 2,
+      "energy": 1.5044,
+      "marker_type": null,
+      "confidence": 0.621
+    },
+    {
+      "source_index": 6,
+      "target_index": 9,
+      "bond_type": "covalent",
+      "similarity": 0.7208,
+      "distance": 3,
+      "energy": 1.4261,
+      "marker_type": "covalent",
+      "confidence": 0.5051
+    },
+    {
+      "source_index": 6,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.5222,
+      "distance": 4,
+      "energy": 2.036,
+      "marker_type": "covalent",
+      "confidence": 0.4761
+    },
+    {
+      "source_index": 6,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.6583,
+      "distance": 5,
+      "energy": 2.0276,
+      "marker_type": "hydrogen",
+      "confidence": 0.5107
+    },
+    {
+      "source_index": 7,
+      "target_index": 8,
+      "bond_type": "covalent",
+      "similarity": 0.3124,
+      "distance": 1,
+      "energy": 1.1634,
+      "marker_type": null,
+      "confidence": 0.3832
+    },
+    {
+      "source_index": 7,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.5357,
+      "distance": 2,
+      "energy": 1.3172,
+      "marker_type": "covalent",
+      "confidence": 0.595
+    },
+    {
+      "source_index": 7,
+      "target_index": 10,
+      "bond_type": "covalent",
+      "similarity": 0.6774,
+      "distance": 3,
+      "energy": 1.4881,
+      "marker_type": "covalent",
+      "confidence": 0.4943
+    },
+    {
+      "source_index": 7,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.5828,
+      "distance": 4,
+      "energy": 1.9261,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 8,
+      "target_index": 9,
+      "bond_type": "covalent",
+      "similarity": 0.5156,
+      "distance": 1,
+      "energy": 0.6625,
+      "marker_type": "covalent",
+      "confidence": 0.584
+    },
+    {
+      "source_index": 8,
+      "target_index": 10,
+      "bond_type": "covalent",
+      "similarity": 0.4334,
+      "distance": 2,
+      "energy": 1.5293,
+      "marker_type": "covalent",
+      "confidence": 0.4251
+    },
+    {
+      "source_index": 8,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.6294,
+      "distance": 3,
+      "energy": 1.5616,
+      "marker_type": "hydrogen",
+      "confidence": 0.6738
+    },
+    {
+      "source_index": 9,
+      "target_index": 10,
+      "bond_type": "covalent",
+      "similarity": 0.4942,
+      "distance": 1,
+      "energy": 0.7048,
+      "marker_type": "covalent",
+      "confidence": 0.5898
+    },
+    {
+      "source_index": 9,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.694,
+      "distance": 2,
+      "energy": 1.0585,
+      "marker_type": "hydrogen",
+      "confidence": 0.5486
+    },
+    {
+      "source_index": 10,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.5975,
+      "distance": 1,
+      "energy": 0.515,
+      "marker_type": "hydrogen",
+      "confidence": 0.6063
+    }
+  ],
+  "model": "gpt-5.2",
+  "created_at": "2026-02-26T19:36:02.619068+00:00",
+  "structural_stability": null,
+  "covalent_ratio": 0.22727272727272727,
+  "hydrogen_ratio": 0.5454545454545454,
+  "vdw_ratio": 0.22727272727272727,
+  "total_bonds": 66
+}

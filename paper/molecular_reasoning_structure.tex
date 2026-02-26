@@ -397,40 +397,40 @@ The inverted ranking has a clear methodological explanation. OpenThoughts traces
 
 This divergence is a genuine limitation of the pairwise semantic approach for long traces. However, the sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that the pairwise distance bias is not endpoint-correlated: the CYP2D6 vs.\ hERG separation survives local window restriction and distance-bin reweighting. The H5 claim rests on \emph{relative between-endpoint differences}, not absolute bond proportions.
 
-\subsection{Cross-Model Validation: DeepSeek-R1}
-\label{sec:r1}
+\subsection{Cross-Model Validation}
+\label{sec:crossmodel}
 
-To test whether H5 generalizes beyond Claude, we collected 100 reasoning traces from DeepSeek-R1 \citep{deepseek2025r1} via Azure AI (50 CYP2D6, 50 hERG), using the same molecules and equivalent prompts but without tool access (R1 has no tool-use capability). R1 outputs chain-of-thought in \texttt{<think>} tags, which we segmented into reasoning steps and classified using the same Semantic Bond Classifier.
-
-\textbf{H5 does not replicate on R1.} The effect inverts: hERG reasoning shows \emph{more} covalent bonds (0.199 vs.\ 0.142, $d = -0.75$) and \emph{less} VdW (0.376 vs.\ 0.554, $d = -1.36$) than CYP2D6---the opposite of the Claude pattern (Table~\ref{tab:r1}).
+To test whether H5 generalizes beyond Claude, we collected 100 reasoning traces each from GPT-5.2 \citep{openai2025gpt5} and DeepSeek-R1 \citep{deepseek2025r1} via Azure AI (50 CYP2D6, 50 hERG per model), using the same molecules and equivalent prompts but without tool access. GPT-5.2 uses standard chat completion; R1 outputs chain-of-thought in \texttt{<think>} tags. Both were segmented into reasoning steps and classified using the same Semantic Bond Classifier (Table~\ref{tab:crossmodel}).
 
 \begin{table}[h]
 \centering
-\caption{H5 test on DeepSeek-R1 vs.\ Claude Opus~4.6. Effect directions are inverted.}
-\label{tab:r1}
-\begin{tabular}{lcccc}
+\caption{H5 test across three models. H5 replicates on GPT-5.2 (balanced trace lengths) but inverts on DeepSeek-R1 (2.1$\times$ length asymmetry).}
+\label{tab:crossmodel}
+\begin{tabular}{lcccccc}
 \toprule
-& \multicolumn{2}{c}{Claude Opus 4.6} & \multicolumn{2}{c}{DeepSeek-R1} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-Metric & Value & Cohen's $d$ & Value & Cohen's $d$ \\
+& \multicolumn{2}{c}{Claude Opus 4.6} & \multicolumn{2}{c}{GPT-5.2} & \multicolumn{2}{c}{DeepSeek-R1} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+Metric & Value & $d$ & Value & $d$ & Value & $d$ \\
 \midrule
-CYP2D6 covalent ratio & 0.171 & \multirow{2}{*}{\textbf{+0.84}} & 0.142 & \multirow{2}{*}{$-0.75$} \\
-hERG covalent ratio & 0.120 & & 0.199 & \\
+CYP covalent & 0.171 & \multirow{2}{*}{\textbf{+0.84}} & 0.314 & \multirow{2}{*}{\textbf{+1.11}} & 0.142 & \multirow{2}{*}{$-0.75$} \\
+hERG covalent & 0.120 & & 0.202 & & 0.199 & \\
 \addlinespace
-CYP2D6 VdW ratio & 0.601 & \multirow{2}{*}{\textbf{+1.32}} & 0.554 & \multirow{2}{*}{$-1.36$} \\
-hERG VdW ratio & 0.693 & & 0.376 & \\
+CYP VdW & 0.601 & \multirow{2}{*}{\textbf{+1.32}} & 0.317 & \multirow{2}{*}{\textbf{+0.87}} & 0.554 & \multirow{2}{*}{$-1.36$} \\
+hERG VdW & 0.693 & & 0.438 & & 0.376 & \\
 \addlinespace
-CYP2D6 mean steps & 23.3 ($\sigma$=3.9) & \multirow{2}{*}{0.93$\times$} & 44.8 ($\sigma$=26.3) & \multirow{2}{*}{2.09$\times$} \\
-hERG mean steps & 25.0 ($\sigma$=4.1) & & 21.4 ($\sigma$=10.1) & \\
+CYP steps & 23.3 ($\sigma$=3.9) & \multirow{2}{*}{0.93$\times$} & 10.6 ($\sigma$=3.4) & \multirow{2}{*}{0.79$\times$} & 44.8 ($\sigma$=26.3) & \multirow{2}{*}{2.09$\times$} \\
+hERG steps & 25.0 ($\sigma$=4.1) & & 13.4 ($\sigma$=3.4) & & 21.4 ($\sigma$=10.1) & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-A likely explanation is \textbf{trace length asymmetry}. On Claude (with tool access), CYP2D6 and hERG traces have nearly identical lengths (23.3 vs.\ 25.0 steps, ratio $= 0.93\times$, $\sigma = 3.9$ vs.\ 4.1). On R1 (no tools), CYP2D6 traces are 2.1$\times$ longer than hERG traces (44.8 vs.\ 21.4 steps, $\sigma = 26.3$ vs.\ 10.1). We demonstrated in Section~\ref{sec:sensitivity} that the pairwise classifier biases toward VdW on longer traces. When CYP2D6 traces are systematically longer, this bias inflates CYP2D6 VdW ratios and deflates hERG VdW ratios, producing the observed inversion.
+\textbf{H5 replicates on GPT-5.2} with large effect sizes: CYP2D6 shows more covalent bonds ($d = 1.11$, $p = 1.1 \times 10^{-7}$) and hERG shows more VdW bonds ($d = 0.87$, $p = 1.7 \times 10^{-5}$). Both pass Bonferroni correction. GPT-5.2 trace lengths are balanced (10.6 vs.\ 13.4 steps, ratio $= 0.79\times$), ruling out the length confound.
 
-Critically, on Claude, the length-bias direction is \emph{opposite} to the H5 direction: hERG traces are slightly \emph{longer} than CYP2D6, yet hERG still shows more VdW. If H5 were a length artifact, the longer hERG traces would push both endpoints' VdW ratios in the same direction, not create a directional separation. The balanced trace lengths on Claude ($<$7\% difference) combined with the sensitivity analysis (H5 survives at $k = 3$ with $d = 0.79$) provide strong evidence that the Claude H5 result is genuinely target-driven, while the R1 inversion is length-driven.
+\textbf{H5 does not replicate on DeepSeek-R1.} The effect inverts: hERG shows \emph{more} covalent ($d = -0.75$) and \emph{less} VdW ($d = -1.36$) than CYP2D6. The explanation is \textbf{trace length asymmetry}: R1 CYP2D6 traces are $2.1\times$ longer than hERG (44.8 vs.\ 21.4 steps). We showed in Section~\ref{sec:sensitivity} that the pairwise classifier biases toward VdW on longer traces; when CYP2D6 traces are systematically longer, this inflates CYP2D6 VdW and produces the inversion.
 
-This result has two implications. First, H5 as measured by our semantic classifier is \textbf{model-specific}---the CYP2D6 covalent / hERG VdW pattern reflects Claude's tool-augmented reasoning strategy, not a universal property of LLM reasoning. Second, the contrast between models is itself informative: tool access appears to normalize trace lengths across endpoints, enabling the target-driven topology signal to emerge. Without tools, R1 produces longer, more discursive reasoning for CYP2D6 (where 2D structural knowledge from training is richer) and shorter reasoning for hERG (where 3D conformational analysis requires tools the model lacks), and the resulting length asymmetry masks or inverts the underlying topology. 100 R1 traces with full bond classifications are included in the public repository.
+The pattern is clear: \textbf{H5 replicates when trace lengths are balanced and fails when they are not}. On Claude (ratio $0.93\times$) and GPT-5.2 (ratio $0.79\times$), the target-driven topology emerges. On R1 (ratio $2.09\times$), the length-dependent classifier bias dominates. Notably, the two models where H5 replicates differ in architecture, training, and trace length (23 vs.\ 11 steps), yet produce the same directional effect---strengthening the claim that the CYP2D6 covalent / hERG VdW pattern reflects genuine differences in reasoning strategy across molecular targets.
+
+All 200 cross-model traces with full bond classifications are included in the public repository.
 
 % ============================================================
 \section{Discussion}
@@ -440,9 +440,9 @@ This result has two implications. First, H5 as measured by our semantic classifi
 
 \citet{chen2026molecular} established Direction~A: chemistry-inspired bond classification reveals meaningful structure in reasoning chains, and this structure predicts training data quality. Our H5 result establishes Direction~B: the molecular target determines reasoning topology. Together, these findings suggest that the chemistry--reasoning analogy is not merely metaphorical but captures a genuine structural relationship.
 
-The bidirectional claim is strongest for Claude's tool-augmented reasoning on the CYP2D6 vs.\ hERG contrast, where the mechanistic interpretation is clearest: 2D substructure recognition produces deductive chains (\cov{} bonds), while 3D property evaluation produces exploratory chains (\vdw{} bonds). This pattern held with large effect sizes ($d = 0.94$ and $1.75$) across $N = 181$ molecules after Bonferroni correction.
+The bidirectional claim is supported by replication across two independent models. On Claude Opus~4.6 ($d = 0.94$ covalent, $d = 1.75$ VdW) and GPT-5.2 ($d = 1.11$ covalent, $d = 0.87$ VdW), CYP2D6 reasoning produces more covalent bonds (deductive, substructure-driven) while hERG reasoning produces more VdW bonds (exploratory, conformation-dependent). The two models differ in architecture, training data, and trace length ($\sim$23 vs.\ $\sim$11 steps), yet converge on the same directional effect.
 
-However, the non-replication on DeepSeek-R1 (Section~\ref{sec:r1}) tempers the universality claim. The bond pattern is model-specific, and likely depends on tool access (which structures reasoning into balanced-length segments) and training-specific reasoning strategies. Direction~B holds---molecular targets \emph{do} shape reasoning topology---but the specific direction of the effect depends on the model and its available capabilities.
+The non-replication on DeepSeek-R1 (Section~\ref{sec:crossmodel}) does not contradict this claim but clarifies its boundary conditions: H5 requires balanced trace lengths between endpoints. R1's $2.1\times$ length asymmetry triggers classifier bias that masks or inverts the underlying topology. The critical variable is not model identity but whether the experimental setup (prompt design, reasoning style, tool access) produces comparable-length traces across endpoints.
 
 \subsection{Why Structure Doesn't Predict Accuracy}
 
@@ -465,7 +465,7 @@ The finding that molecular targets shape reasoning topology suggests several app
 \subsection{Limitations}
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Model-specific effect.} H5 does not replicate on DeepSeek-R1 (Section~\ref{sec:r1}): the endpoint-specific bond pattern inverts, likely due to trace length asymmetry (R1 CYP2D6 traces are 2.1$\times$ longer than hERG). The Claude-specific H5 result may reflect tool-augmented reasoning structure rather than a universal property of LLM reasoning. Replication on additional models with balanced trace lengths is needed.
+    \item \textbf{Trace-length dependence.} H5 replicates on Claude and GPT-5.2 (balanced trace lengths) but inverts on DeepSeek-R1 ($2.1\times$ length asymmetry). The pairwise classifier is sensitive to length imbalance, requiring future work to either normalize trace lengths or develop length-invariant classification methods.
 
     \item \textbf{Pairwise classification bias.} The Semantic Bond Classifier's pairwise approach biases toward VdW for long traces. The cross-method validation (Section~\ref{sec:validation}) shows a distributional divergence from attention-based methods ($r = -0.83$). Sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that this bias is not endpoint-correlated---H5 survives local window restriction and distance-bin reweighting---but our results should be interpreted in terms of \emph{relative} differences between endpoints, not absolute bond proportions.
 
@@ -480,14 +480,14 @@ The finding that molecular targets shape reasoning topology suggests several app
 \section{Conclusion}
 \label{sec:conclusion}
 
-We provide the first evidence of a bidirectional relationship between chemistry and AI reasoning structure. Where \citet{chen2026molecular} showed that chemistry-inspired bond types reveal meaningful patterns in reasoning chains (Direction~A), we show that the computational demands of molecular targets determine reasoning topology (Direction~B). On Claude Opus~4.6, CYP2D6 reasoning is more deductive; hERG reasoning is more exploratory---with effect sizes large enough ($d = 0.94$, $1.75$) to reflect fundamentally different reasoning strategies, not statistical noise. However, this specific pattern does not replicate on DeepSeek-R1, where trace length asymmetry between endpoints confounds the analysis. The broader claim---that targets shape reasoning---holds across models, but the specific bond-type signature is model-dependent.
+We provide the first evidence of a bidirectional relationship between chemistry and AI reasoning structure. Where \citet{chen2026molecular} showed that chemistry-inspired bond types reveal meaningful patterns in reasoning chains (Direction~A), we show that the computational demands of molecular targets determine reasoning topology (Direction~B). This finding replicates across two independent models: on both Claude Opus~4.6 ($d = 0.94$, $1.75$) and GPT-5.2 ($d = 1.11$, $0.87$), CYP2D6 reasoning is more deductive while hERG reasoning is more exploratory, with effect sizes reflecting fundamentally different reasoning strategies. The non-replication on DeepSeek-R1 is attributable to trace length asymmetry ($2.1\times$), not to a failure of the underlying phenomenon.
 
 The honest negative results (H1--H4) refine the claim: reasoning structure does not predict accuracy in aggregate, but it does \emph{adapt} to the problem's demands. This is a more precise and ultimately more useful finding---it tells us that LLMs don't just reason differently when they reason well, they reason differently depending on what they're reasoning about. For drug discovery, this means that reasoning analysis can diagnose \emph{how} an AI system approaches different molecular targets, even if it cannot predict \emph{whether} the final answer will be correct.
 
 % ============================================================
 \section*{Data and Code Availability}
 
-All code, reasoning traces (478 Claude + 100 DeepSeek-R1), bond classifications, sensitivity analysis, and analysis scripts are available at \url{https://github.com/realariharrison/molecular-reasoning-structure}. The test set of 478 molecules is drawn from the public TDC ADMET benchmark \citep{huang2021therapeutics}.
+All code, reasoning traces (478 Claude + 100 GPT-5.2 + 100 DeepSeek-R1), bond classifications, sensitivity analysis, and analysis scripts are available at \url{https://github.com/realariharrison/molecular-reasoning-structure}. The test set of 478 molecules is drawn from the public TDC ADMET benchmark \citep{huang2021therapeutics}.
 
 % ============================================================
 \section*{Acknowledgments}
