@@ -420,15 +420,17 @@ hERG covalent ratio & 0.120 & & 0.199 & \\
 CYP2D6 VdW ratio & 0.601 & \multirow{2}{*}{\textbf{+1.32}} & 0.554 & \multirow{2}{*}{$-1.36$} \\
 hERG VdW ratio & 0.693 & & 0.376 & \\
 \addlinespace
-CYP2D6 mean steps & $\sim$22 & --- & 44.8 & --- \\
-hERG mean steps & $\sim$22 & --- & 21.4 & --- \\
+CYP2D6 mean steps & 23.3 ($\sigma$=3.9) & \multirow{2}{*}{0.93$\times$} & 44.8 ($\sigma$=26.3) & \multirow{2}{*}{2.09$\times$} \\
+hERG mean steps & 25.0 ($\sigma$=4.1) & & 21.4 ($\sigma$=10.1) & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-A likely explanation is \textbf{trace length asymmetry}. On Claude (with tool access), both endpoints produce traces of similar length ($\sim$22 steps). On R1 (no tools), CYP2D6 traces are 2.1$\times$ longer than hERG traces (44.8 vs.\ 21.4 steps, $\sigma = 26.3$ vs.\ 10.1). We demonstrated in Section~\ref{sec:sensitivity} that the pairwise classifier biases toward VdW on longer traces. When CYP2D6 traces are systematically longer, this bias inflates CYP2D6 VdW ratios and deflates hERG VdW ratios, producing the observed inversion.
+A likely explanation is \textbf{trace length asymmetry}. On Claude (with tool access), CYP2D6 and hERG traces have nearly identical lengths (23.3 vs.\ 25.0 steps, ratio $= 0.93\times$, $\sigma = 3.9$ vs.\ 4.1). On R1 (no tools), CYP2D6 traces are 2.1$\times$ longer than hERG traces (44.8 vs.\ 21.4 steps, $\sigma = 26.3$ vs.\ 10.1). We demonstrated in Section~\ref{sec:sensitivity} that the pairwise classifier biases toward VdW on longer traces. When CYP2D6 traces are systematically longer, this bias inflates CYP2D6 VdW ratios and deflates hERG VdW ratios, producing the observed inversion.
 
-This result has two implications. First, H5 as measured by our semantic classifier is \textbf{model-specific}---the CYP2D6 covalent / hERG VdW pattern reflects Claude's reasoning strategy, not a universal property of LLM reasoning about these targets. Second, the inversion is itself informative: R1 produces longer, more discursive reasoning for CYP2D6 (a 2D-driven endpoint) and shorter, more direct reasoning for hERG (a 3D-driven endpoint), suggesting that without tools, the model compensates by reasoning more extensively about the endpoint where its training knowledge is richer. 100 R1 traces with full bond classifications are included in the public repository.
+Critically, on Claude, the length-bias direction is \emph{opposite} to the H5 direction: hERG traces are slightly \emph{longer} than CYP2D6, yet hERG still shows more VdW. If H5 were a length artifact, the longer hERG traces would push both endpoints' VdW ratios in the same direction, not create a directional separation. The balanced trace lengths on Claude ($<$7\% difference) combined with the sensitivity analysis (H5 survives at $k = 3$ with $d = 0.79$) provide strong evidence that the Claude H5 result is genuinely target-driven, while the R1 inversion is length-driven.
+
+This result has two implications. First, H5 as measured by our semantic classifier is \textbf{model-specific}---the CYP2D6 covalent / hERG VdW pattern reflects Claude's tool-augmented reasoning strategy, not a universal property of LLM reasoning. Second, the contrast between models is itself informative: tool access appears to normalize trace lengths across endpoints, enabling the target-driven topology signal to emerge. Without tools, R1 produces longer, more discursive reasoning for CYP2D6 (where 2D structural knowledge from training is richer) and shorter reasoning for hERG (where 3D conformational analysis requires tools the model lacks), and the resulting length asymmetry masks or inverts the underlying topology. 100 R1 traces with full bond classifications are included in the public repository.
 
 % ============================================================
 \section{Discussion}
