@@ -397,6 +397,39 @@ The inverted ranking has a clear methodological explanation. OpenThoughts traces
 
 This divergence is a genuine limitation of the pairwise semantic approach for long traces. However, the sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that the pairwise distance bias is not endpoint-correlated: the CYP2D6 vs.\ hERG separation survives local window restriction and distance-bin reweighting. The H5 claim rests on \emph{relative between-endpoint differences}, not absolute bond proportions.
 
+\subsection{Cross-Model Validation: DeepSeek-R1}
+\label{sec:r1}
+
+To test whether H5 generalizes beyond Claude, we collected 100 reasoning traces from DeepSeek-R1 \citep{deepseek2025r1} via Azure AI (50 CYP2D6, 50 hERG), using the same molecules and equivalent prompts but without tool access (R1 has no tool-use capability). R1 outputs chain-of-thought in \texttt{<think>} tags, which we segmented into reasoning steps and classified using the same Semantic Bond Classifier.
+
+\textbf{H5 does not replicate on R1.} The effect inverts: hERG reasoning shows \emph{more} covalent bonds (0.199 vs.\ 0.142, $d = -0.75$) and \emph{less} VdW (0.376 vs.\ 0.554, $d = -1.36$) than CYP2D6---the opposite of the Claude pattern (Table~\ref{tab:r1}).
+
+\begin{table}[h]
+\centering
+\caption{H5 test on DeepSeek-R1 vs.\ Claude Opus~4.6. Effect directions are inverted.}
+\label{tab:r1}
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{Claude Opus 4.6} & \multicolumn{2}{c}{DeepSeek-R1} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Metric & Value & Cohen's $d$ & Value & Cohen's $d$ \\
+\midrule
+CYP2D6 covalent ratio & 0.171 & \multirow{2}{*}{\textbf{+0.84}} & 0.142 & \multirow{2}{*}{$-0.75$} \\
+hERG covalent ratio & 0.120 & & 0.199 & \\
+\addlinespace
+CYP2D6 VdW ratio & 0.601 & \multirow{2}{*}{\textbf{+1.32}} & 0.554 & \multirow{2}{*}{$-1.36$} \\
+hERG VdW ratio & 0.693 & & 0.376 & \\
+\addlinespace
+CYP2D6 mean steps & $\sim$22 & --- & 44.8 & --- \\
+hERG mean steps & $\sim$22 & --- & 21.4 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A likely explanation is \textbf{trace length asymmetry}. On Claude (with tool access), both endpoints produce traces of similar length ($\sim$22 steps). On R1 (no tools), CYP2D6 traces are 2.1$\times$ longer than hERG traces (44.8 vs.\ 21.4 steps, $\sigma = 26.3$ vs.\ 10.1). We demonstrated in Section~\ref{sec:sensitivity} that the pairwise classifier biases toward VdW on longer traces. When CYP2D6 traces are systematically longer, this bias inflates CYP2D6 VdW ratios and deflates hERG VdW ratios, producing the observed inversion.
+
+This result has two implications. First, H5 as measured by our semantic classifier is \textbf{model-specific}---the CYP2D6 covalent / hERG VdW pattern reflects Claude's reasoning strategy, not a universal property of LLM reasoning about these targets. Second, the inversion is itself informative: R1 produces longer, more discursive reasoning for CYP2D6 (a 2D-driven endpoint) and shorter, more direct reasoning for hERG (a 3D-driven endpoint), suggesting that without tools, the model compensates by reasoning more extensively about the endpoint where its training knowledge is richer. 100 R1 traces with full bond classifications are included in the public repository.
+
 % ============================================================
 \section{Discussion}
 \label{sec:discussion}
@@ -405,7 +438,9 @@ This divergence is a genuine limitation of the pairwise semantic approach for lo
 
 \citet{chen2026molecular} established Direction~A: chemistry-inspired bond classification reveals meaningful structure in reasoning chains, and this structure predicts training data quality. Our H5 result establishes Direction~B: the molecular target determines reasoning topology. Together, these findings suggest that the chemistry--reasoning analogy is not merely metaphorical but captures a genuine structural relationship.
 
-The bidirectional claim is strongest for the CYP2D6 vs.\ hERG contrast, where the mechanistic interpretation is clearest: 2D substructure recognition produces deductive chains (\cov{} bonds), while 3D property evaluation produces exploratory chains (\vdw{} bonds). This pattern held with large effect sizes ($d = 0.94$ and $1.75$) across $N = 181$ molecules after Bonferroni correction.
+The bidirectional claim is strongest for Claude's tool-augmented reasoning on the CYP2D6 vs.\ hERG contrast, where the mechanistic interpretation is clearest: 2D substructure recognition produces deductive chains (\cov{} bonds), while 3D property evaluation produces exploratory chains (\vdw{} bonds). This pattern held with large effect sizes ($d = 0.94$ and $1.75$) across $N = 181$ molecules after Bonferroni correction.
+
+However, the non-replication on DeepSeek-R1 (Section~\ref{sec:r1}) tempers the universality claim. The bond pattern is model-specific, and likely depends on tool access (which structures reasoning into balanced-length segments) and training-specific reasoning strategies. Direction~B holds---molecular targets \emph{do} shape reasoning topology---but the specific direction of the effect depends on the model and its available capabilities.
 
 \subsection{Why Structure Doesn't Predict Accuracy}
 
@@ -428,7 +463,7 @@ The finding that molecular targets shape reasoning topology suggests several app
 \subsection{Limitations}
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Single model.} All primary traces were collected from Claude Opus~4.6. Replication on open-source reasoning models (e.g., DeepSeek-R1, Qwen) is needed to establish whether endpoint-specific bond patterns are a general property of LLM reasoning or Claude-specific.
+    \item \textbf{Model-specific effect.} H5 does not replicate on DeepSeek-R1 (Section~\ref{sec:r1}): the endpoint-specific bond pattern inverts, likely due to trace length asymmetry (R1 CYP2D6 traces are 2.1$\times$ longer than hERG). The Claude-specific H5 result may reflect tool-augmented reasoning structure rather than a universal property of LLM reasoning. Replication on additional models with balanced trace lengths is needed.
 
     \item \textbf{Pairwise classification bias.} The Semantic Bond Classifier's pairwise approach biases toward VdW for long traces. The cross-method validation (Section~\ref{sec:validation}) shows a distributional divergence from attention-based methods ($r = -0.83$). Sensitivity analysis (Section~\ref{sec:sensitivity}) demonstrates that this bias is not endpoint-correlated---H5 survives local window restriction and distance-bin reweighting---but our results should be interpreted in terms of \emph{relative} differences between endpoints, not absolute bond proportions.
 
@@ -443,14 +478,14 @@ The finding that molecular targets shape reasoning topology suggests several app
 \section{Conclusion}
 \label{sec:conclusion}
 
-We provide the first evidence of a bidirectional relationship between chemistry and AI reasoning structure. Where \citet{chen2026molecular} showed that chemistry-inspired bond types reveal meaningful patterns in reasoning chains (Direction~A), we show that the computational demands of molecular targets determine reasoning topology (Direction~B). CYP2D6 reasoning is more deductive; hERG reasoning is more exploratory---with effect sizes large enough ($d = 0.94$, $1.75$) to reflect fundamentally different reasoning strategies, not statistical noise.
+We provide the first evidence of a bidirectional relationship between chemistry and AI reasoning structure. Where \citet{chen2026molecular} showed that chemistry-inspired bond types reveal meaningful patterns in reasoning chains (Direction~A), we show that the computational demands of molecular targets determine reasoning topology (Direction~B). On Claude Opus~4.6, CYP2D6 reasoning is more deductive; hERG reasoning is more exploratory---with effect sizes large enough ($d = 0.94$, $1.75$) to reflect fundamentally different reasoning strategies, not statistical noise. However, this specific pattern does not replicate on DeepSeek-R1, where trace length asymmetry between endpoints confounds the analysis. The broader claim---that targets shape reasoning---holds across models, but the specific bond-type signature is model-dependent.
 
 The honest negative results (H1--H4) refine the claim: reasoning structure does not predict accuracy in aggregate, but it does \emph{adapt} to the problem's demands. This is a more precise and ultimately more useful finding---it tells us that LLMs don't just reason differently when they reason well, they reason differently depending on what they're reasoning about. For drug discovery, this means that reasoning analysis can diagnose \emph{how} an AI system approaches different molecular targets, even if it cannot predict \emph{whether} the final answer will be correct.
 
 % ============================================================
 \section*{Data and Code Availability}
 
-All code, reasoning traces (478), and analysis scripts are available at \url{https://github.com/realariharrison/molecular-reasoning-structure}. The test set of 478 molecules is drawn from the public TDC ADMET benchmark \citep{huang2021therapeutics}.
+All code, reasoning traces (478 Claude + 100 DeepSeek-R1), bond classifications, sensitivity analysis, and analysis scripts are available at \url{https://github.com/realariharrison/molecular-reasoning-structure}. The test set of 478 molecules is drawn from the public TDC ADMET benchmark \citep{huang2021therapeutics}.
 
 % ============================================================
 \section*{Acknowledgments}

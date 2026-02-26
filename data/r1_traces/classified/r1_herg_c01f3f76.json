@@ -1,0 +1,932 @@
+{
+  "trace_id": "c01f3f76-b75f-4de5-976e-e512ed282534",
+  "molecule": {
+    "smiles": "CCCCc1oc2ccc(NS(C)(=O)=O)cc2c1C(=O)c1ccc(OCCCN(CCCC)CCCC)cc1",
+    "endpoint": "herg",
+    "ground_truth": 1,
+    "claude_prediction": null,
+    "claude_confidence": null,
+    "novoexpert1_prediction": null
+  },
+  "steps": [
+    {
+      "step_id": "126bbfa3",
+      "step_index": 0,
+      "step_type": "reasoning",
+      "content": "Okay, let's tackle this hERG blockade prediction for the given molecule. First, I need to look at the SMILES structure and break it down. The SMILES is CCCCc1oc2ccc(NS(C)(=O)=O)cc2c1C(=O)c1ccc(OCCCN(CCCC)CCCC)cc1. Let me parse that step by step.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716441+00:00"
+    },
+    {
+      "step_id": "7c2ffbbc",
+      "step_index": 1,
+      "step_type": "reasoning",
+      "content": "Starting from the left: CCCC is a butyl chain. Then there's a cyclic structure. The 'c1oc2' suggests a furan ring? Wait, 'oc2' would be an oxygen in a ring. So maybe a benzofuran or similar. Let me draw this mentally. The core might be a furan ring fused to another benzene ring. Let's see: c1oc2ccc(...)cc2c1. So, the first ring is a five-membered ring with an oxygen (furan), fused to a benzene ring. Then there's a substituent on the benzene part: NS(C)(=O)=O. That's a sulfonamide group attached to a nitrogen. So, the structure has a benzofuran ring with a sulfonamide substituent.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716456+00:00"
+    },
+    {
+      "step_id": "d40d9bfd",
+      "step_index": 2,
+      "step_type": "reasoning",
+      "content": "Then, after the benzofuran part, there's a carbonyl group (C(=O)) connected to another benzene ring. The benzene ring has a substituent: OCCCN(CCCC)CCCC. Breaking that down: an oxygen connected to a chain. The chain is O-C-C-C-N with two ethylhexyl groups? Wait, OCCCN(CCCC)CCCC. The oxygen is connected to a propyl chain (O-C-C-C-) then a nitrogen which is connected to two butyl groups (N(CCCC)CCCC). So that's a di-butylaminopropoxy group attached to the benzene ring.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716467+00:00"
+    },
+    {
+      "step_id": "486baafc",
+      "step_index": 3,
+      "step_type": "reasoning",
+      "content": "So putting it all together: the molecule has a benzofuran ring with a sulfonamide group, connected via a carbonyl to a benzene ring that has a di-butylaminopropoxy substituent.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716478+00:00"
+    },
+    {
+      "step_id": "96df859a",
+      "step_index": 4,
+      "step_type": "reasoning",
+      "content": "Now, for hERG blocking, the key features are a basic nitrogen (which is protonated at physiological pH) and hydrophobic/aromatic regions flanking it. Also, the molecule's shape and length should fit into the hERG channel's cavity, which is known to be quite large and accommodate certain conformations.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716488+00:00"
+    },
+    {
+      "step_id": "90c19601",
+      "step_index": 5,
+      "step_type": "reasoning",
+      "content": "Looking at the substituents, the di-butylaminopropoxy group has a tertiary amine. The nitrogen in that group (N(CCCC)CCCC) is a tertiary amine. Tertiary amines can be basic, depending on their environment. The pKa of a typical aliphatic tertiary amine is around 9-10, so at physiological pH (7.4), it would be mostly protonated, making it a cationic center. So that's a check for the basic nitrogen.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716499+00:00"
+    },
+    {
+      "step_id": "7b822586",
+      "step_index": 6,
+      "step_type": "reasoning",
+      "content": "Next, are there hydrophobic/aromatic domains flanking this basic nitrogen? The nitrogen is in the OCCCN(CCCC)CCCC group. The propoxy chain is attached to a benzene ring. The benzene ring itself is aromatic, and the benzofuran part is also a fused aromatic system. The basic nitrogen is connected via a propyl chain to the aromatic ring. So the nitrogen is adjacent to a propyl chain (which is somewhat flexible) and two butyl groups (very hydrophobic). The other side of the molecule has the benzofuran-sulfonamide and the carbonyl-linked benzene. So there are multiple aromatic rings and hydrophobic regions. The two butyl groups on the amine are definitely hydrophobic, and the aromatic rings (benzofuran and the other benzene) are also hydrophobic. So the basic nitrogen is flanked by hydrophobic regions. The propyl chain might act as a spacer between the aromatic ring and the amine.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716509+00:00"
+    },
+    {
+      "step_id": "01762b01",
+      "step_index": 7,
+      "step_type": "reasoning",
+      "content": "The molecular length and shape: The molecule has two aromatic rings connected by a carbonyl group. The benzofuran part and the benzene ring with the substituent. The di-butylaminopropoxy group is a long chain. The overall length might be sufficient to fit into the hERG channel's cavity, which is known to require a certain distance between the aromatic groups and the basic nitrogen. The hERG channel's structure has a large central cavity, and molecules that block it often have a 'U' or 'V' shape, allowing them to interact with specific residues. The presence of two aromatic domains (the benzofuran and the benzene) separated by a carbonyl might create a suitable spatial arrangement. However, without the 3D structure, it's hard to be certain. But the 2D structure suggests that there are two distinct aromatic regions connected by a linker (the carbonyl), and the basic nitrogen is in a side chain. The di-butyl groups add bulk and hydrophobicity, which could help in binding to the presence of a tertiary amine (basic nitrogen) that's protonated, flanked by hydrophobic regions (the two butyl groups and the aromatic rings), and a molecular structure that might allow the molecule to adopt a conformation fitting the hERG channel. The sulfonamide group is a polar group, but in this case, it's part of the benzofuran ring substituent, which might not interfere with the hERG binding. The key structural alerts mentioned include piperidine + aromatic, but here it's a di-butylamine instead of piperidine. However, any basic amine with flanking aromatic groups could be a risk. Terfenadine-like structures have a similar setup: a central core with aromatic rings and a basic amine side chain. This molecule's structure does resemble some hERG blockers in that aspect.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716521+00:00"
+    },
+    {
+      "step_id": "b9dc644f",
+      "step_index": 8,
+      "step_type": "reasoning",
+      "content": "Potential contradictions: The sulfonamide group is a sulfonamide (NS(=O)(=O)C), which is a strong electron-withdrawing group. However, it's attached to the benzofuran ring. Sulfonamides are generally more polar and might reduce membrane permeability, but in this case, the molecule has significant hydrophobic regions (butyl groups, aromatic rings) which could counterbalance that. The presence of the sulfonamide might not be a major issue for hERG binding if the rest of the structure fits.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716532+00:00"
+    },
+    {
+      "step_id": "4d569433",
+      "step_index": 9,
+      "step_type": "reasoning",
+      "content": "Uncertainty comes from the 3D conformation. The molecule's flexibility could allow it to adopt a conformation where the basic nitrogen is positioned between the two aromatic regions. The di-butyl groups might add to the hydrophobic interactions in the hERG channel's hydrophobic pockets. The length of the molecule: the distance between the basic nitrogen and the aromatic rings might be suitable. The propyl chain (OCCCN) could provide the necessary spacing.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716542+00:00"
+    },
+    {
+      "step_id": "c50f2ee2",
+      "step_index": 10,
+      "step_type": "reasoning",
+      "content": "Another consideration: hERG blockers often have a positively charged nitrogen that interacts with specific tyrosine or phenylalanine residues in the channel's pore. The hydrophobic regions then interact with the surrounding hydrophobic residues. The di-butyl groups here are very lipophilic, which could enhance binding.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716552+00:00"
+    },
+    {
+      "step_id": "7083c588",
+      "step_index": 11,
+      "step_type": "reasoning",
+      "content": "So, putting it all together: the molecule has a tertiary amine (basic, protonated), multiple aromatic/hydrophobic regions (benzofuran, benzene rings, butyl groups), and a structure that could allow the right spatial arrangement. The presence of a sulfonamide might not be a deterrent here. Therefore, the prediction would be positive for hERG blockade. Confidence level: medium. The key factors are the tertiary amine, the flanking aromatic rings, and the hydrophobic di-butyl groups. However, confidence is medium because 3D conformation is critical and we can't assess that fully from 2D structure. But the presence of the key features aligns with known hERG blockers.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716563+00:00"
+    },
+    {
+      "step_id": "d818e8c5",
+      "step_index": 12,
+      "step_type": "conclusion",
+      "content": "**PREDICTION:** Positive  \n**CONFIDENCE:** Medium  \n**KEY_FACTORS:**  \n1. **Tertiary amine (basic nitrogen):** The di-butylaminopropoxy group contains a tertiary amine with a predicted pKa ~9-10, making it protonated and cationic at physiological pH. This is a hallmark of hERG blockers.  \n2. **Hydrophobic/aromatic domains:** The molecule features two aromatic systems (benzofuran and benzene rings) and bulky hydrophobic di-butyl groups. These regions likely interact with the hERG channel\u2019s hydrophobic pockets.  \n3. **Molecular shape/length:** The 2D structure suggests a potential spatial arrangement where the basic nitrogen is flanked by aromatic/hydrophobic moieties, a configuration compatible with the hERG channel\u2019s cavity.  \n\n**REASONING:**  \n- The tertiary amine provides a cationic center critical for electrostatic interactions with hERG\u2019s pore residues (e.g., Tyr652, Phe656).  \n- The benzofuran and benzene rings, along with the di-butyl groups, create extended hydrophobic surfaces that align with hERG\u2019s lipophilic binding environment.  \n- While the sulfonamide group introduces polarity, its placement on the benzofuran likely does not disrupt the overall hydrophobic/aromatic balance required for hERG binding.  \n\n**UNCERTAINTY:**  \nThe 3D conformation (e.g., spatial alignment of the amine and aromatic systems) cannot be fully assessed from the 2D structure. Flexibility in the propoxy chain and di-butyl groups may allow favorable binding, but this remains speculative.  \n\n**VERIFICATION:**  \nNo major contradictions were identified. The structure lacks classic piperidine motifs but retains key hERG-blocking features (basic nitrogen + hydrophobicity). The medium confidence reflects reliance on 2D analysis and conformational uncertainty.",
+      "tool_name": null,
+      "tool_input": null,
+      "tool_output": null,
+      "timestamp": "2026-02-26T12:00:21.716574+00:00"
+    }
+  ],
+  "bonds": [
+    {
+      "source_index": 0,
+      "target_index": 1,
+      "bond_type": "hydrogen",
+      "similarity": 0.4309,
+      "distance": 1,
+      "energy": 0.8418,
+      "marker_type": "hydrogen",
+      "confidence": 0.5744
+    },
+    {
+      "source_index": 0,
+      "target_index": 2,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2638,
+      "distance": 2,
+      "energy": 2.0258,
+      "marker_type": "hydrogen",
+      "confidence": 0.4005
+    },
+    {
+      "source_index": 0,
+      "target_index": 3,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3109,
+      "distance": 3,
+      "energy": 2.2668,
+      "marker_type": "hydrogen",
+      "confidence": 0.6352
+    },
+    {
+      "source_index": 0,
+      "target_index": 4,
+      "bond_type": "hydrogen",
+      "similarity": 0.5357,
+      "distance": 4,
+      "energy": 2.0104,
+      "marker_type": null,
+      "confidence": 0.7342
+    },
+    {
+      "source_index": 0,
+      "target_index": 5,
+      "bond_type": "van_der_waals",
+      "similarity": 0.1905,
+      "distance": 5,
+      "energy": 3.2675,
+      "marker_type": "hydrogen",
+      "confidence": 0.648
+    },
+    {
+      "source_index": 0,
+      "target_index": 6,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2319,
+      "distance": 6,
+      "energy": 3.2533,
+      "marker_type": "hydrogen",
+      "confidence": 0.6437
+    },
+    {
+      "source_index": 0,
+      "target_index": 7,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3058,
+      "distance": 7,
+      "energy": 3.1307,
+      "marker_type": "hydrogen",
+      "confidence": 0.6357
+    },
+    {
+      "source_index": 0,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.4637,
+      "distance": 8,
+      "energy": 2.8479,
+      "marker_type": "hydrogen",
+      "confidence": 0.6409
+    },
+    {
+      "source_index": 0,
+      "target_index": 9,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3756,
+      "distance": 9,
+      "energy": 3.1763,
+      "marker_type": "hydrogen",
+      "confidence": 0.6278
+    },
+    {
+      "source_index": 0,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.416,
+      "distance": 10,
+      "energy": 3.1796,
+      "marker_type": "hydrogen",
+      "confidence": 0.8163
+    },
+    {
+      "source_index": 0,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.6415,
+      "distance": 11,
+      "energy": 2.8418,
+      "marker_type": "covalent",
+      "confidence": 0.5158
+    },
+    {
+      "source_index": 0,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.504,
+      "distance": 12,
+      "energy": 3.1702,
+      "marker_type": "hydrogen",
+      "confidence": 0.8239
+    },
+    {
+      "source_index": 1,
+      "target_index": 2,
+      "bond_type": "covalent",
+      "similarity": 0.6943,
+      "distance": 1,
+      "energy": 0.3649,
+      "marker_type": "hydrogen",
+      "confidence": 0.6991
+    },
+    {
+      "source_index": 1,
+      "target_index": 3,
+      "bond_type": "hydrogen",
+      "similarity": 0.5367,
+      "distance": 2,
+      "energy": 1.3154,
+      "marker_type": "hydrogen",
+      "confidence": 0.7687
+    },
+    {
+      "source_index": 1,
+      "target_index": 4,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2322,
+      "distance": 3,
+      "energy": 2.5587,
+      "marker_type": null,
+      "confidence": 1.0
+    },
+    {
+      "source_index": 1,
+      "target_index": 5,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3904,
+      "distance": 4,
+      "energy": 2.327,
+      "marker_type": "hydrogen",
+      "confidence": 0.6261
+    },
+    {
+      "source_index": 1,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.4877,
+      "distance": 5,
+      "energy": 2.3274,
+      "marker_type": "hydrogen",
+      "confidence": 0.8225
+    },
+    {
+      "source_index": 1,
+      "target_index": 7,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3973,
+      "distance": 6,
+      "energy": 2.7149,
+      "marker_type": "hydrogen",
+      "confidence": 0.6253
+    },
+    {
+      "source_index": 1,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2889,
+      "distance": 7,
+      "energy": 3.1876,
+      "marker_type": "hydrogen",
+      "confidence": 0.7282
+    },
+    {
+      "source_index": 1,
+      "target_index": 9,
+      "bond_type": "van_der_waals",
+      "similarity": 0.318,
+      "distance": 8,
+      "energy": 3.2252,
+      "marker_type": "hydrogen",
+      "confidence": 0.6344
+    },
+    {
+      "source_index": 1,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.108,
+      "distance": 9,
+      "energy": 4.4226,
+      "marker_type": "hydrogen",
+      "confidence": 0.6564
+    },
+    {
+      "source_index": 1,
+      "target_index": 11,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2156,
+      "distance": 10,
+      "energy": 3.837,
+      "marker_type": "covalent",
+      "confidence": 0.6454
+    },
+    {
+      "source_index": 1,
+      "target_index": 12,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3388,
+      "distance": 11,
+      "energy": 3.4802,
+      "marker_type": "hydrogen",
+      "confidence": 0.632
+    },
+    {
+      "source_index": 2,
+      "target_index": 3,
+      "bond_type": "covalent",
+      "similarity": 0.7642,
+      "distance": 1,
+      "energy": 0.269,
+      "marker_type": "hydrogen",
+      "confidence": 0.7093
+    },
+    {
+      "source_index": 2,
+      "target_index": 4,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2441,
+      "distance": 2,
+      "energy": 2.1034,
+      "marker_type": null,
+      "confidence": 0.6289
+    },
+    {
+      "source_index": 2,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.4687,
+      "distance": 3,
+      "energy": 1.8564,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 2,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.5659,
+      "distance": 4,
+      "energy": 1.9557,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 2,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5932,
+      "distance": 5,
+      "energy": 2.1317,
+      "marker_type": "hydrogen",
+      "confidence": 0.7182
+    },
+    {
+      "source_index": 2,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3102,
+      "distance": 6,
+      "energy": 2.9623,
+      "marker_type": "hydrogen",
+      "confidence": 0.7264
+    },
+    {
+      "source_index": 2,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.429,
+      "distance": 7,
+      "energy": 2.7923,
+      "marker_type": "hydrogen",
+      "confidence": 0.8174
+    },
+    {
+      "source_index": 2,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2207,
+      "distance": 8,
+      "energy": 3.5902,
+      "marker_type": "hydrogen",
+      "confidence": 0.6449
+    },
+    {
+      "source_index": 2,
+      "target_index": 11,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2379,
+      "distance": 9,
+      "energy": 3.6333,
+      "marker_type": "covalent",
+      "confidence": 0.6431
+    },
+    {
+      "source_index": 2,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.4308,
+      "distance": 10,
+      "energy": 3.1447,
+      "marker_type": "hydrogen",
+      "confidence": 0.8176
+    },
+    {
+      "source_index": 3,
+      "target_index": 4,
+      "bond_type": "covalent",
+      "similarity": 0.3014,
+      "distance": 1,
+      "energy": 1.1993,
+      "marker_type": null,
+      "confidence": 0.3812
+    },
+    {
+      "source_index": 3,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.4337,
+      "distance": 2,
+      "energy": 1.5286,
+      "marker_type": "hydrogen",
+      "confidence": 0.7571
+    },
+    {
+      "source_index": 3,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.4881,
+      "distance": 3,
+      "energy": 1.8158,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 3,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5904,
+      "distance": 4,
+      "energy": 1.9132,
+      "marker_type": "hydrogen",
+      "confidence": 0.8872
+    },
+    {
+      "source_index": 3,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.5589,
+      "distance": 5,
+      "energy": 2.1911,
+      "marker_type": "hydrogen",
+      "confidence": 0.6566
+    },
+    {
+      "source_index": 3,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.4402,
+      "distance": 6,
+      "energy": 2.6123,
+      "marker_type": "hydrogen",
+      "confidence": 0.8184
+    },
+    {
+      "source_index": 3,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2699,
+      "distance": 7,
+      "energy": 3.2556,
+      "marker_type": "hydrogen",
+      "confidence": 0.6396
+    },
+    {
+      "source_index": 3,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.4254,
+      "distance": 8,
+      "energy": 2.9343,
+      "marker_type": "covalent",
+      "confidence": 0.5976
+    },
+    {
+      "source_index": 3,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.4554,
+      "distance": 9,
+      "energy": 2.9837,
+      "marker_type": "hydrogen",
+      "confidence": 0.8197
+    },
+    {
+      "source_index": 4,
+      "target_index": 5,
+      "bond_type": "hydrogen",
+      "similarity": 0.322,
+      "distance": 1,
+      "energy": 1.1331,
+      "marker_type": "hydrogen",
+      "confidence": 0.5491
+    },
+    {
+      "source_index": 4,
+      "target_index": 6,
+      "bond_type": "hydrogen",
+      "similarity": 0.3963,
+      "distance": 2,
+      "energy": 1.6186,
+      "marker_type": "hydrogen",
+      "confidence": 0.5619
+    },
+    {
+      "source_index": 4,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.5591,
+      "distance": 3,
+      "energy": 1.68,
+      "marker_type": "hydrogen",
+      "confidence": 0.8855
+    },
+    {
+      "source_index": 4,
+      "target_index": 8,
+      "bond_type": "hydrogen",
+      "similarity": 0.5256,
+      "distance": 4,
+      "energy": 2.0296,
+      "marker_type": "hydrogen",
+      "confidence": 0.6513
+    },
+    {
+      "source_index": 4,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.5981,
+      "distance": 5,
+      "energy": 2.1234,
+      "marker_type": "hydrogen",
+      "confidence": 0.8313
+    },
+    {
+      "source_index": 4,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.7514,
+      "distance": 6,
+      "energy": 2.0776,
+      "marker_type": "hydrogen",
+      "confidence": 0.4875
+    },
+    {
+      "source_index": 4,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.7314,
+      "distance": 7,
+      "energy": 2.2587,
+      "marker_type": "covalent",
+      "confidence": 0.5373
+    },
+    {
+      "source_index": 4,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.7505,
+      "distance": 8,
+      "energy": 2.3665,
+      "marker_type": "hydrogen",
+      "confidence": 0.4877
+    },
+    {
+      "source_index": 5,
+      "target_index": 6,
+      "bond_type": "covalent",
+      "similarity": 0.624,
+      "distance": 1,
+      "energy": 0.4717,
+      "marker_type": "hydrogen",
+      "confidence": 0.6881
+    },
+    {
+      "source_index": 5,
+      "target_index": 7,
+      "bond_type": "hydrogen",
+      "similarity": 0.4769,
+      "distance": 2,
+      "energy": 1.4337,
+      "marker_type": "hydrogen",
+      "confidence": 0.6432
+    },
+    {
+      "source_index": 5,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.1424,
+      "distance": 3,
+      "energy": 3.0475,
+      "marker_type": "hydrogen",
+      "confidence": 0.7397
+    },
+    {
+      "source_index": 5,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.4328,
+      "distance": 4,
+      "energy": 2.2238,
+      "marker_type": "hydrogen",
+      "confidence": 0.8178
+    },
+    {
+      "source_index": 5,
+      "target_index": 10,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2756,
+      "distance": 5,
+      "energy": 2.8984,
+      "marker_type": "hydrogen",
+      "confidence": 0.639
+    },
+    {
+      "source_index": 5,
+      "target_index": 11,
+      "bond_type": "van_der_waals",
+      "similarity": 0.2625,
+      "distance": 6,
+      "energy": 3.1295,
+      "marker_type": "covalent",
+      "confidence": 0.6405
+    },
+    {
+      "source_index": 5,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.4724,
+      "distance": 7,
+      "energy": 2.6959,
+      "marker_type": "hydrogen",
+      "confidence": 0.8212
+    },
+    {
+      "source_index": 6,
+      "target_index": 7,
+      "bond_type": "covalent",
+      "similarity": 0.6203,
+      "distance": 1,
+      "energy": 0.4775,
+      "marker_type": "hydrogen",
+      "confidence": 0.7917
+    },
+    {
+      "source_index": 6,
+      "target_index": 8,
+      "bond_type": "van_der_waals",
+      "similarity": 0.269,
+      "distance": 2,
+      "energy": 2.0061,
+      "marker_type": "hydrogen",
+      "confidence": 0.4896
+    },
+    {
+      "source_index": 6,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.5821,
+      "distance": 3,
+      "energy": 1.6397,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 6,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.4338,
+      "distance": 4,
+      "energy": 2.2214,
+      "marker_type": "hydrogen",
+      "confidence": 0.8179
+    },
+    {
+      "source_index": 6,
+      "target_index": 11,
+      "bond_type": "van_der_waals",
+      "similarity": 0.3609,
+      "distance": 5,
+      "energy": 2.6286,
+      "marker_type": "covalent",
+      "confidence": 0.6295
+    },
+    {
+      "source_index": 6,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.5746,
+      "distance": 6,
+      "energy": 2.3458,
+      "marker_type": "hydrogen",
+      "confidence": 0.8295
+    },
+    {
+      "source_index": 7,
+      "target_index": 8,
+      "bond_type": "covalent",
+      "similarity": 0.4518,
+      "distance": 1,
+      "energy": 0.7945,
+      "marker_type": "hydrogen",
+      "confidence": 0.5116
+    },
+    {
+      "source_index": 7,
+      "target_index": 9,
+      "bond_type": "covalent",
+      "similarity": 0.7795,
+      "distance": 2,
+      "energy": 0.9422,
+      "marker_type": "hydrogen",
+      "confidence": 0.7115
+    },
+    {
+      "source_index": 7,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.5656,
+      "distance": 3,
+      "energy": 1.6685,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 7,
+      "target_index": 11,
+      "bond_type": "hydrogen",
+      "similarity": 0.5647,
+      "distance": 4,
+      "energy": 1.9577,
+      "marker_type": "covalent",
+      "confidence": 0.7945
+    },
+    {
+      "source_index": 7,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.7902,
+      "distance": 5,
+      "energy": 1.845,
+      "marker_type": "hydrogen",
+      "confidence": 0.622
+    },
+    {
+      "source_index": 8,
+      "target_index": 9,
+      "bond_type": "hydrogen",
+      "similarity": 0.4566,
+      "distance": 1,
+      "energy": 0.784,
+      "marker_type": "hydrogen",
+      "confidence": 0.5796
+    },
+    {
+      "source_index": 8,
+      "target_index": 10,
+      "bond_type": "hydrogen",
+      "similarity": 0.5383,
+      "distance": 2,
+      "energy": 1.3125,
+      "marker_type": "hydrogen",
+      "confidence": 0.7689
+    },
+    {
+      "source_index": 8,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.6405,
+      "distance": 3,
+      "energy": 1.5441,
+      "marker_type": "covalent",
+      "confidence": 0.5156
+    },
+    {
+      "source_index": 8,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.5468,
+      "distance": 4,
+      "energy": 1.99,
+      "marker_type": "hydrogen",
+      "confidence": 1.0
+    },
+    {
+      "source_index": 9,
+      "target_index": 10,
+      "bond_type": "covalent",
+      "similarity": 0.6194,
+      "distance": 1,
+      "energy": 0.4791,
+      "marker_type": "hydrogen",
+      "confidence": 0.6874
+    },
+    {
+      "source_index": 9,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.6246,
+      "distance": 2,
+      "energy": 1.1638,
+      "marker_type": "covalent",
+      "confidence": 0.7194
+    },
+    {
+      "source_index": 9,
+      "target_index": 12,
+      "bond_type": "hydrogen",
+      "similarity": 0.7347,
+      "distance": 3,
+      "energy": 1.4069,
+      "marker_type": "hydrogen",
+      "confidence": 0.6389
+    },
+    {
+      "source_index": 10,
+      "target_index": 11,
+      "bond_type": "covalent",
+      "similarity": 0.6231,
+      "distance": 1,
+      "energy": 0.473,
+      "marker_type": "covalent",
+      "confidence": 0.8752
+    },
+    {
+      "source_index": 10,
+      "target_index": 12,
+      "bond_type": "covalent",
+      "similarity": 0.7577,
+      "distance": 2,
+      "energy": 0.9706,
+      "marker_type": "hydrogen",
+      "confidence": 0.7084
+    },
+    {
+      "source_index": 11,
+      "target_index": 12,
+      "bond_type": "covalent",
+      "similarity": 0.7447,
+      "distance": 1,
+      "energy": 0.2948,
+      "marker_type": "hydrogen",
+      "confidence": 0.7066
+    }
+  ],
+  "model": "deepseek-r1",
+  "created_at": "2026-02-26T12:00:21.716356+00:00",
+  "structural_stability": null,
+  "covalent_ratio": 0.19230769230769232,
+  "hydrogen_ratio": 0.5,
+  "vdw_ratio": 0.3076923076923077,
+  "total_bonds": 78
+}

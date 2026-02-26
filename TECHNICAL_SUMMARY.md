@@ -27,12 +27,16 @@ CYP2D6 reasoning (2D substructure-driven) produces significantly more **covalent
 
 Reasoning structure does **not** predict accuracy in aggregate (*r* = -0.021, logistic AUROC = 0.531). Structure reflects *what* the model reasons about, not *how well*.
 
+## Cross-Model Validation (DeepSeek-R1)
+
+H5 **does not replicate** on DeepSeek-R1 (100 traces, no tool access). The effect inverts: R1 CYP2D6 has *more* VdW (0.554) and *less* covalent (0.142) than hERG (VdW 0.376, cov 0.199). Likely cause: R1 CYP2D6 traces are 2.1x longer (44.8 vs 21.4 steps), triggering the known pairwise-length bias. H5 is model-specific, not universal — but the finding that targets shape topology differently across models is itself informative.
+
 ## Cross-Method Divergence
 
-Our classifier diverges from attention-based distributions on OpenThoughts-114k (*r* = -0.83), due to O(*n*^2) pairwise bias on long traces (~242 steps). The corrected energy formula (E = -log(sim) + log(d)) aligns with Chen et al.'s E but slightly increased the divergence because it reinforces VdW classification for distant pairs. The fundamental issue is the pairwise approach on long traces, not the energy calibration. Sensitivity analysis shows this bias is not endpoint-correlated.
+Our classifier diverges from attention-based distributions on OpenThoughts-114k (*r* = -0.83), due to O(*n*^2) pairwise bias on long traces (~242 steps). Sensitivity analysis shows this bias is not endpoint-correlated.
 
 ## Resources
 
 - **Paper:** Full manuscript in `paper/` directory
 - **Code + Data:** [github.com/realariharrison/molecular-reasoning-structure](https://github.com/realariharrison/molecular-reasoning-structure)
-- **478 traces, bond classifications, sensitivity analysis, and all statistics** are publicly available
+- **578 traces (478 Claude + 100 R1), bond classifications, sensitivity analysis, and all statistics** are publicly available
