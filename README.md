@@ -4,6 +4,8 @@
 
 Ari Harrison, NovoQuant Nexus (February 2026)
 
+**Preprint:** [ChemRxiv](https://chemrxiv.org/doi/full/10.26434/chemrxiv.15001019/v1)
+
 ---
 
 ## Key Finding
@@ -110,7 +112,8 @@ python run_experiment.py
   title={Molecular Targets Shape Reasoning Topology: Bidirectional Validation
          of Chemistry-Inspired Bond Classification for AI Reasoning Chains},
   author={Harrison, Ari},
-  journal={arXiv preprint},
+  journal={ChemRxiv preprint},
+  doi={10.26434/chemrxiv.15001019/v1},
   year={2026}
 }
 ```
